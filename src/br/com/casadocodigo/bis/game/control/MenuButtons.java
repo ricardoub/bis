@@ -1,6 +1,8 @@
 package br.com.casadocodigo.bis.game.control;
 
 import org.cocos2d.layers.CCLayer;
+import org.cocos2d.nodes.CCDirector;
+import org.cocos2d.transitions.CCFadeTransition;
 import org.cocos2d.types.CGPoint;
 
 import static br.com.casadocodigo.bis.config.DeviceSettings.screenHeight;
@@ -9,6 +11,7 @@ import static br.com.casadocodigo.bis.config.DeviceSettings.screenResolution;
 
 import br.com.casadocodigo.bis.config.Assets;
 import br.com.casadocodigo.bis.game.interfaces.ButtonDelegate;
+import br.com.casadocodigo.bis.game.scenes.GameScene;
 
 public class MenuButtons extends CCLayer implements ButtonDelegate {
 	private Button playButton;
@@ -75,6 +78,8 @@ public class MenuButtons extends CCLayer implements ButtonDelegate {
 	public void buttonClicked(Button sender) {
 		if (sender.equals(this.playButton)) {
 			System.out.println("Button clicked: Play");
+			CCDirector.sharedDirector().replaceScene(
+				CCFadeTransition.transition(1.0f, GameScene.createGame() ));
 		}
 
 		if (sender.equals(this.highscoredButton)) {
