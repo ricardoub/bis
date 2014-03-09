@@ -7,4 +7,6 @@ public class Assets {
 	public static String HIGHSCORE = "highscore.png";
 	public static String HELP = "help.png";
 	public static String SOUND = "sound.png";
+	public static String METEOR = "meteor.png";
+	
 }
