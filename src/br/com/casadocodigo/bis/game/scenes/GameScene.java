@@ -43,6 +43,11 @@ public class GameScene extends CCLayer implements MeteorsEngineDelegate {
 					screenWidth() / 2.0f,
 					screenHeight() / 2.0f)));
 		this.addChild(this.background);
+		
+		this.meteorsLayer = CCLayer.node();
+		this.addChild(this.meteorsLayer);
+		
+		this.addGameObjects();
 	}
 	
 	public static CCScene createGame() {
@@ -59,12 +64,21 @@ public class GameScene extends CCLayer implements MeteorsEngineDelegate {
 		meteor.start();
 		this.meteorsArray.add(meteor);
 	}
-	/* não funciona por falta de parametros
-	@Override
-	public void createMeteor(Meteor, float x, float y, float vel, double ang, int vl) {
-		this.meteorsLayer.addChild(meteor);
-		meteor.start();
-		this.meteorsArray.add(meteor);
+	
+	private void addGameObjects() {
+		this.meteorsArray = new ArrayList();
+		this.meteorsEngine = new MeteorsEngine();
 	}
-	*/
+	
+	@Override
+	public void onEnter() {
+		super.onEnter(); 
+		this.startEngines();
+		
+	}
+	
+	private void startEngines() {
+		this.addChild(this.meteorsEngine);
+		this.meteorsEngine.setDelegate(this);
+	}
 }
