@@ -70,8 +70,8 @@ public class GameButtons extends CCLayer implements ButtonDelegate {
 			//this.delegate.moveRight();
 		}
 		if (sender.equals(this.shootButton)) {
-			System.out.println("Button clicked: Shoot");
-			//this.delegate.shoot();
+			//System.out.println("Button clicked: Shoot");
+			this.delegate.shoot();
 		}
 		/*
 		if (sender.equals(this.pauseButton)) {

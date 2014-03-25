@@ -1,5 +1,9 @@
 package br.com.casadocodigo.bis.game.interfaces;
 
-public enum ShootEngineDelegate {
+import br.com.casadocodigo.bis.game.objects.Shoot;
+
+public interface ShootEngineDelegate {
+	
+	public void createShoot(Shoot shoot);
 
 }
