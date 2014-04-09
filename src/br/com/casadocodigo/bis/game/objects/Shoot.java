@@ -1,14 +1,17 @@
 package br.com.casadocodigo.bis.game.objects;
 
+import static br.com.casadocodigo.bis.config.DeviceSettings.screenResolution;
+
+import org.cocos2d.actions.instant.CCCallFunc;
+import org.cocos2d.actions.interval.CCFadeOut;
+import org.cocos2d.actions.interval.CCScaleBy;
+import org.cocos2d.actions.interval.CCSequence;
+import org.cocos2d.actions.interval.CCSpawn;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 
 import br.com.casadocodigo.bis.config.Assets;
 import br.com.casadocodigo.bis.game.interfaces.ShootEngineDelegate;
-
-import static br.com.casadocodigo.bis.config.DeviceSettings.screenHeight;
-import static br.com.casadocodigo.bis.config.DeviceSettings.screenWidth;
-import static br.com.casadocodigo.bis.config.DeviceSettings.screenResolution;
 
 public class Shoot extends CCSprite {
 	private ShootEngineDelegate delegate;
@@ -35,5 +38,29 @@ public class Shoot extends CCSprite {
 	public void start() {
 		//System.out.println("shoot moving!");
 		this.schedule("update");
+	}
+	
+	public void explode() {
+		// remove do arrray de tiro
+		this.delegate.removeShoot(this);
+		
+		// para o agendamento
+		this.unschedule("update");
+		
+		//cria efeitos
+		float dt = 0.2f;
+		CCScaleBy a1 = CCScaleBy.action(dt, 2f);
+		CCFadeOut a2 = CCFadeOut.action(dt);
+		CCSpawn s1 = CCSpawn.actions(a1,a2);
+		
+		//funcao a ser executada após o efeito
+		CCCallFunc c1 = CCCallFunc.action(this, "removeMe");
+		
+		// roda efeito
+		this.runAction(CCSequence.actions(s1, c1));
+	}
+	
+	public void removeMe() {
+		this.removeFromParentAndCleanup(true);
 	}
 }
